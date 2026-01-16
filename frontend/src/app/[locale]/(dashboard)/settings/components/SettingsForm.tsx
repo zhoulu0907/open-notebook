@@ -14,6 +14,7 @@ import { useSettings, useUpdateSettings } from '@/lib/hooks/use-settings'
 import { useEffect, useState } from 'react'
 import { ChevronDownIcon } from 'lucide-react'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { LanguageSwitcher } from '@/components/settings/LanguageSwitcher'
 
 const settingsSchema = z.object({
   default_content_processing_engine_doc: z.enum(['auto', 'docling', 'simple']).optional(),
@@ -95,6 +96,18 @@ export function SettingsForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>{t.settings.language}</CardTitle>
+          <CardDescription>
+            {t.settings.languageDesc}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LanguageSwitcher />
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>{t.settings.contentProcessing}</CardTitle>
