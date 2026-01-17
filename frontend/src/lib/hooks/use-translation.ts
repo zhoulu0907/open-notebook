@@ -1,6 +1,7 @@
 import { useTranslation as useI18nTranslation } from 'react-i18next'
-import { useMemo, useCallback, useRef } from 'react'
+import { useMemo, useCallback, useRef, useEffect } from 'react'
 import { emitLanguageChangeEnd, emitLanguageChangeStart } from '@/lib/i18n-events'
+import { locales, type Locale } from '@/i18n/config'
 
 /**
  * Custom useTranslation hook that provides a Proxy-based API for accessing translations.
@@ -144,6 +145,14 @@ export function useTranslation() {
       return i18n.language
     } finally {
       emitLanguageChangeEnd(lang)
+    }
+  }, [i18n])
+
+  // Read saved language preference from localStorage on mount
+  useEffect(() => {
+    const savedLocale = localStorage.getItem('preferred-locale')
+    if (savedLocale && locales.includes(savedLocale as Locale)) {
+      i18n.changeLanguage(savedLocale)
     }
   }, [i18n])
 

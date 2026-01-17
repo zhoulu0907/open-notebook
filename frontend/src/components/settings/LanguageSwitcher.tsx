@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select'
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const handleLanguageChange = (newLocale: string) => {
     const locale = newLocale as Locale
@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium">
-        {i18n.t('common.language')}
+        {t.common.language}
       </label>
       <Select value={i18n.language} onValueChange={handleLanguageChange}>
         <SelectTrigger className="w-full">
