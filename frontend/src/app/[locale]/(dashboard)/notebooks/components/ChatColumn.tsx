@@ -8,7 +8,7 @@ import { ChatPanel } from '@/components/source/ChatPanel'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Card, CardContent } from '@/components/ui/card'
 import { AlertCircle } from 'lucide-react'
-import { ContextSelections } from '../[id]/page'
+import type { ContextSelections } from '@/lib/types/notebook'
 import { useTranslation } from '@/lib/hooks/use-translation'
 
 interface ChatColumnProps {

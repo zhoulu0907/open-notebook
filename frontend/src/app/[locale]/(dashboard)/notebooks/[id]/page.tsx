@@ -17,6 +17,7 @@ import { useTranslation } from '@/lib/hooks/use-translation'
 import { cn } from '@/lib/utils'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { FileText, StickyNote, MessageSquare } from 'lucide-react'
+import type { ContextMode, ContextSelections } from '@/lib/types/notebook'
 
 // Re-export types from shared location for backward compatibility
 export type { ContextMode, ContextSelections } from '@/lib/types/notebook'
