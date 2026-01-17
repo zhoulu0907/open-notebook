@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslation } from '@/lib/hooks/use-translation'
 
 import { AppShell } from '@/components/layout/AppShell'
 import { NotebookList } from './components/NotebookList'
@@ -12,7 +12,7 @@ import { CreateNotebookDialog } from '@/components/notebooks/CreateNotebookDialo
 import { Input } from '@/components/ui/input'
 
 export default function NotebooksPage() {
-  const t = useTranslations()
+  const { t } = useTranslation()
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const { data: notebooks, isLoading, refetch } = useNotebooks(false)
