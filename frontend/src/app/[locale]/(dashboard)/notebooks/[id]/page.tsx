@@ -18,12 +18,8 @@ import { cn } from '@/lib/utils'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { FileText, StickyNote, MessageSquare } from 'lucide-react'
 
-export type ContextMode = 'off' | 'insights' | 'full'
-
-export interface ContextSelections {
-  sources: Record<string, ContextMode>
-  notes: Record<string, ContextMode>
-}
+// Re-export types from shared location for backward compatibility
+export type { ContextMode, ContextSelections } from '@/lib/types/notebook'
 
 export default function NotebookPage() {
   const { t } = useTranslation()

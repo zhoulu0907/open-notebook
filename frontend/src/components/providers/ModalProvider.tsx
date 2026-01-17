@@ -1,7 +1,7 @@
 'use client'
 
 import { useModalManager } from '@/lib/hooks/use-modal-manager'
-import { NoteEditorDialog } from '@/app/(dashboard)/notebooks/components/NoteEditorDialog'
+import { NoteEditorDialog } from '@/components/notebooks/NoteEditorDialog'
 import { SourceInsightDialog } from '@/components/source/SourceInsightDialog'
 import { SourceDialog } from '@/components/source/SourceDialog'
 
