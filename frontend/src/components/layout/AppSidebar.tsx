@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useMemo } from 'react'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -84,6 +84,15 @@ export function AppSidebar() {
   const { isCollapsed, toggleCollapse } = useSidebarStore()
   const { openSourceDialog, openNotebookDialog, openPodcastDialog } = useCreateDialogs()
 
+  // Get the root URL for static assets (bypasses locale routing)
+  const rootUrl = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      const { protocol, host } = window.location
+      return `${protocol}//${host}`
+    }
+    return ''
+  }, [])
+
   const [createMenuOpen, setCreateMenuOpen] = useState(false)
   const [isMac, setIsMac] = useState(true) // Default to Mac for SSR
 
@@ -120,8 +129,8 @@ export function AppSidebar() {
         >
           {isCollapsed ? (
             <div className="relative flex items-center justify-center w-full">
-              <Image
-                src="/logo.svg"
+              <img
+                src={`${rootUrl}/logo.svg`}
                 alt="Open Notebook"
                 width={32}
                 height={32}
@@ -139,7 +148,12 @@ export function AppSidebar() {
           ) : (
             <>
               <div className="flex items-center gap-2">
-                <Image src="/logo.svg" alt={t.common.appName} width={32} height={32} />
+                <img
+                  src={`${rootUrl}/logo.svg`}
+                  alt={t.common.appName || "Open Notebook"}
+                  width={32}
+                  height={32}
+                />
                 <span className="text-base font-medium text-sidebar-foreground">
                   {t.common.appName}
                 </span>
@@ -240,9 +254,9 @@ export function AppSidebar() {
             </DropdownMenu>
           </div>
 
-          {navigation.map((section, index) => (
-            <div key={section.title}>
-              {index > 0 && (
+          {navigation.map((section, sectionIndex) => (
+            <div key={`section-${sectionIndex}-${section.title}`}>
+              {sectionIndex > 0 && (
                 <Separator className="my-3" />
               )}
               <div className="space-y-1">
@@ -252,7 +266,7 @@ export function AppSidebar() {
                   </h3>
                 )}
 
-                {section.items.map((item) => {
+                {section.items.map((item, itemIndex) => {
                   const isActive = pathname?.startsWith(item.href) || false
                   const button = (
                     <Button
@@ -270,7 +284,7 @@ export function AppSidebar() {
 
                   if (isCollapsed) {
                     return (
-                      <Tooltip key={item.name}>
+                      <Tooltip key={`tooltip-${sectionIndex}-${itemIndex}-${item.href}`}>
                         <TooltipTrigger asChild>
                           <Link href={item.href}>
                             {button}
@@ -282,7 +296,7 @@ export function AppSidebar() {
                   }
 
                   return (
-                    <Link key={item.name} href={item.href}>
+                    <Link key={`link-${sectionIndex}-${itemIndex}-${item.href}`} href={item.href}>
                       {button}
                     </Link>
                   )

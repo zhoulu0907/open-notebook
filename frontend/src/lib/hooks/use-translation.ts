@@ -15,7 +15,7 @@ import { locales, type Locale } from '@/i18n/config'
  */
 export function useTranslation() {
   const { t: i18nTranslate, i18n } = useI18nTranslation()
-  
+
   // Use a ref to track the current language to avoid unnecessary Proxy recreation
   const languageRef = useRef(i18n.language)
   languageRef.current = i18n.language

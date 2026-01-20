@@ -28,6 +28,22 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
+// Mock Element.scrollIntoView for Radix UI components
+Element.prototype.scrollIntoView = vi.fn()
+
+// Mock getBoundingClientRect for positioning
+Element.prototype.getBoundingClientRect = vi.fn(() => ({
+  width: 0,
+  height: 0,
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  x: 0,
+  y: 0,
+  toJSON: vi.fn(),
+}))
+
 // Mock @/lib/hooks/use-translation with full locale structure
 vi.mock('../lib/hooks/use-translation', () => {
   const t = (key: string) => key

@@ -8,6 +8,7 @@ import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { ConnectionGuard } from "@/components/common/ConnectionGuard";
 import { themeScript } from "@/lib/theme-script";
@@ -50,10 +51,12 @@ export default async function LocaleLayout({
           <ErrorBoundary>
             <ThemeProvider>
               <QueryProvider>
-                <ConnectionGuard>
-                  {children}
-                  <Toaster />
-                </ConnectionGuard>
+                <I18nProvider>
+                  <ConnectionGuard>
+                    {children}
+                    <Toaster />
+                  </ConnectionGuard>
+                </I18nProvider>
               </QueryProvider>
             </ThemeProvider>
           </ErrorBoundary>

@@ -27,6 +27,16 @@ const nextConfig: NextConfig = {
     console.log(`[Next.js Rewrites] Proxying /api/* to ${internalApiUrl}/api/*`)
 
     return [
+      // Static assets - serve from root without locale prefix
+      {
+        source: '/:locale/logo.svg',
+        destination: '/logo.svg',
+      },
+      {
+        source: '/:locale/favicon.ico',
+        destination: '/favicon.ico',
+      },
+      // API proxy
       {
         source: '/api/:path*',
         destination: `${internalApiUrl}/api/:path*`,

@@ -2,6 +2,8 @@
 
 import { locales, localeNames, type Locale } from '@/i18n/config'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { useRouter, usePathname } from '@/i18n/routing'
+import { useLocale } from 'next-intl'
 import {
   Select,
   SelectContent,
@@ -11,12 +13,17 @@ import {
 } from '@/components/ui/select'
 
 export function LanguageSwitcher() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
+  const locale = useLocale() as Locale
+  const router = useRouter()
+  const pathname = usePathname()
 
   const handleLanguageChange = (newLocale: string) => {
-    const locale = newLocale as Locale
-    localStorage.setItem('preferred-locale', locale)
-    i18n.changeLanguage(locale)
+    const loc = newLocale as Locale
+    // Save to localStorage for react-i18next
+    localStorage.setItem('preferred-locale', loc)
+    // Navigate to new locale URL
+    router.replace(pathname, { locale: loc })
   }
 
   return (
@@ -24,7 +31,7 @@ export function LanguageSwitcher() {
       <label className="text-sm font-medium">
         {t.common.language}
       </label>
-      <Select value={i18n.language} onValueChange={handleLanguageChange}>
+      <Select value={locale} onValueChange={handleLanguageChange}>
         <SelectTrigger className="w-full">
           <SelectValue />
         </SelectTrigger>
